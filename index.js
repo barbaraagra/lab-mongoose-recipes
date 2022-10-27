@@ -18,6 +18,27 @@ const manageRecipes = async () => {
     // Before adding any recipes to the database, let's remove all existing ones
     await Recipe.deleteMany();
 
+
+    //INTERATION 2
+    /* 
+        const RecipeInfo = new Recipe({ title: "Asian Glazed Chicken Thighs" });
+        const savedRecipe = await RecipeInfo.save();
+        console.log(savedRecipe); */
+
+
+    // INTERATION 3
+    const allRecipe = await Recipe.insertMany(data);
+    allRecipe.forEach((recipe) => {
+      console.log(recipe.title)
+    })
+
+    const updateRecipe = await Recipe.findOneAndUpdate({ title: "Rigatoni alla Genovese" }, { duration: 100 }, { new: true });
+    console.log(updateRecipe);
+
+    await Recipe.deleteOne({ title: 'Carrot Cake' });
+
+    dbConnection.disconnect();
+
     // Run your code here, after you have insured that the connection was made
   } catch (error) {
     console.log(error);
@@ -25,6 +46,8 @@ const manageRecipes = async () => {
 };
 
 manageRecipes();
+
+
 
 //Method 2: Using .then() method
 //If you want to use this method uncomment the code below:
